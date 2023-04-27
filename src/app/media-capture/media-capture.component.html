@@ -1,0 +1,9 @@
+<div class="row">
+  <button class="col m-3" (click)="grabFrame()">Grab Frame</button>
+  <button class="col m-3" (click)="takePhoto()">Take Photo</button>
+</div>
+<div class="row">
+  <video #video autoplay height="150px" width="150px"></video>
+  <canvas #grabFrameCanvas></canvas>
+  <img class="center" #img style="height: 150px; width: 225px" />
+</div>

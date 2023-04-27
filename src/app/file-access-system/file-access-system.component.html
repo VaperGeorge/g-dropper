@@ -1,0 +1,206 @@
+<ng-container
+  *ngIf="{
+    allCoinsList: allCoinsList$ | async,
+    selectedCoinNetworks: selectedCoinNetworks$ | async,
+    selectedIndex: selectedIndex$ | async
+  } as data"
+>
+  <div class="page-title">
+    <h2>
+      Auto withdraw<br />from {{ data.selectedIndex === 0 ? 'Okex' : 'Binance' }} to your
+      crypto accounts
+    </h2>
+  </div>
+
+  <div class="container-page">
+    <mat-tab-group
+      animationDuration="300ms"
+      (selectedIndexChange)="selectedIndex$.next($event)"
+    >
+      <mat-tab label="OKEX">
+        <form [formGroup]="formOkex">
+          <div class="form-box">
+            <div class="row">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-12">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                      <mat-label>Enter your API KEY</mat-label>
+                      <input matInput placeholder="API_KEY" formControlName="apiKey" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-12">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                      <mat-label>Enter your SECRET KEY</mat-label>
+                      <input
+                        matInput
+                        placeholder="SECRET_KEY"
+                        formControlName="secretKey"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-12">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                      <mat-label>Enter your Pass phrase</mat-label>
+                      <input
+                        matInput
+                        placeholder="PASSPHRASE"
+                        formControlName="passphrase"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-12">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                      <mat-label>Enter the amount</mat-label>
+                      <input
+                        matInput
+                        placeholder="0.001"
+                        formControlName="amount"
+                        type="number"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-12">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                      <mat-label>Enter the currency</mat-label>
+                      <input matInput placeholder="ETH" formControlName="currency" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-12">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                      <mat-label>Enter the network</mat-label>
+                      <input
+                        matInput
+                        placeholder="ETH-Arbitrum one"
+                        formControlName="to_network"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+      <mat-tab label="Binance">
+        <form [formGroup]="formBinance">
+          <div class="form-box">
+            <div class="row">
+              <div class="col-6">
+                <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                  <mat-label>Enter your API KEY</mat-label>
+                  <input matInput placeholder="API_KEY" formControlName="apiKey" />
+                </mat-form-field>
+              </div>
+              <div class="col-6">
+                <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                  <mat-label>Enter your SECRET KEY</mat-label>
+                  <input matInput placeholder="SECRET_KEY" formControlName="secretKey" />
+                </mat-form-field>
+              </div>
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-4">
+                    <mat-form-field appearance="outline" [style.fontSize.px]="14">
+                      <mat-label>Enter the amount</mat-label>
+                      <input
+                        matInput
+                        placeholder="0.001"
+                        formControlName="amount"
+                        type="number"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field
+                      appearance="outline"
+                      [style.fontSize.px]="14"
+                      *ngIf="!data.allCoinsList?.length"
+                    >
+                      <mat-label>Enter the currency</mat-label>
+                      <input matInput placeholder="ETH" formControlName="currency" />
+                    </mat-form-field>
+                    <mat-form-field
+                      appearance="outline"
+                      [style.fontSize.px]="14"
+                      *ngIf="data.allCoinsList?.length"
+                    >
+                      <mat-label>Select the currency</mat-label>
+                      <mat-select formControlName="currency">
+                        <mat-option
+                          *ngFor="let coin of data.allCoinsList"
+                          [value]="coin.coin"
+                        >
+                          {{ coin.coin }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field
+                      appearance="outline"
+                      [style.fontSize.px]="14"
+                      *ngIf="
+                        !data.allCoinsList?.length && !data.selectedCoinNetworks?.length
+                      "
+                    >
+                      <mat-label>Enter the network</mat-label>
+                      <input
+                        matInput
+                        placeholder="ETH-Arbitrum one"
+                        formControlName="to_network"
+                      />
+                    </mat-form-field>
+                    <mat-form-field
+                      appearance="outline"
+                      [style.fontSize.px]="14"
+                      *ngIf="
+                        data.allCoinsList?.length && data.selectedCoinNetworks?.length
+                      "
+                    >
+                      <mat-label>Select the network</mat-label>
+                      <mat-select formControlName="to_network">
+                        <mat-option
+                          *ngFor="let network of data.selectedCoinNetworks"
+                          [value]="network.network"
+                        >
+                          {{ network.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Select the file with crypto accounts</mat-card-title>
+        <mat-card-subtitle>
+          You need to have an .txt file with added crypto accounts one by one, like a list
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-flat-button color="accent" type="submit" (click)="getFile()">
+          Select file
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <div class="row main-actions">
+      <div class="col-12">
+        <button mat-flat-button color="primary" type="submit" (click)="submit()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
