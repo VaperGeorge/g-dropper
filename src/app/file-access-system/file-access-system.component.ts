@@ -9,7 +9,6 @@ import { CoinData, Network } from '../interfaces/coin';
 import { BinanceService } from '../services/binance.service';
 import { OkexService } from '../services/okex.service';
 import { Withdrawal } from '../interfaces/withdrawal';
-import { Bridge } from 'orbiter-sdk';
 
 @Component({
   selector: 'app-file-access-system',
@@ -80,10 +79,6 @@ export class FileAccessSystemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const bridge = new Bridge('Testnet');
-
-    console.log(bridge);
-
     const formValueOkex = localStorage.getItem('cryptoFormValueOkex');
     const formValueBinance = localStorage.getItem('cryptoFormValueBinance');
 
