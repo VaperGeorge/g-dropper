@@ -53,28 +53,4 @@ export class BinanceService {
       params: params,
     });
   }
-
-  // test(apiKey: string, secretKey: string) {
-  //   const timestamp = Date.now();
-  //   const signature = CryptoJS.HmacSHA256('timestamp=' + timestamp, secretKey).toString(
-  //     CryptoJS.enc.Hex,
-  //   );
-
-  //   const headers = new HttpHeaders({
-  //     'X-MBX-APIKEY': apiKey,
-  //   });
-
-  //   const body = {
-  //     timestamp: timestamp,
-  //     signature: signature,
-  //   };
-
-  //   const params = new HttpParams({ fromObject: body });
-
-  //   return this.http.post<CoinData[]>(
-  //     '/sapi/v3/asset/getUserAsset',
-  //     {},
-  //     { headers, params },
-  //   );
-  // }
 }
