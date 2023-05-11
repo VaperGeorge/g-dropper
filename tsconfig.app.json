@@ -3,7 +3,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["@types/wicg-file-system-access", "@types/w3c-image-capture", "webrtc"]
+    "types": [
+      "@types/wicg-file-system-access",
+      "@types/w3c-image-capture",
+      "@types/wicg-file-system-access",
+      "webrtc"
+    ]
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.d.ts"]

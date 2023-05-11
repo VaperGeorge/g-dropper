@@ -29,7 +29,7 @@ export class BinanceService {
     const params = new HttpParams({ fromObject: body });
 
     return this.http
-      .post(`/sapi/v1/capital/withdraw/apply`, {}, { headers, params })
+      .post(`https://api.binance.com/v1/capital/withdraw/apply`, {}, { headers, params })
       .pipe(take(1));
   }
 
@@ -48,7 +48,7 @@ export class BinanceService {
       signature: signature,
     };
 
-    return this.http.get<CoinData[]>('/sapi/v1/capital/config/getall', {
+    return this.http.get<CoinData[]>('https://api.binance.com/v1/capital/config/getall', {
       headers: headers,
       params: params,
     });
