@@ -36,15 +36,13 @@ export class OkexService {
       'OK-ACCESS-PASSPHRASE': passphrase,
     });
 
-    return this.http
-      .post(`https://www.okx.com/api/v5/asset/withdrawal`, body, { headers })
-      .pipe(
-        take(1),
-        catchError((error: HttpErrorResponse) => {
-          console.error(error);
-          return throwError(error);
-        }),
-      );
+    return this.http.post(`/api/v5/asset/withdrawal`, body, { headers }).pipe(
+      take(1),
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      }),
+    );
   }
 
   createSign(
